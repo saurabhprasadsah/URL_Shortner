@@ -13,13 +13,9 @@ connectToMongoDB('mongodb://127.0.0.1:27017/short-url')
 app.use(express.json());
 
 app.set("view engine", "ejs");
-
 app.set('views', path.resolve("./views"));
 
-
-
 app.use("/url", urlRoute);
-
 
 app.get('/:shortId', async (req, res) => {
     const shortId = req.params.shortId;
