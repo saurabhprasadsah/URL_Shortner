@@ -1,9 +1,7 @@
+const User = require("../models/user");
 
-const User = require("../models/user"); 
-
-async function handleUserSignup(req, res){
-    const  {name, email, password} = req.body;
-
+async function handleUserSignup(req, res) {
+    const { name, email, password } = req.body;
     await User.create({
         name,
         email,
@@ -12,14 +10,13 @@ async function handleUserSignup(req, res){
     return res.redirect("/");
 }
 
-async function handleUserLogin(req, res){
-    const  {email, password} = req.body;
-    const user = await User.findOne({email,  password });
-    console.log(user);
-    if(!user)
+async function handleUserLogin(req, res) {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email, password });
+    if (!user)
         return res.render("login", {
-         error: "Invalid username and password",
-    });
+            error: "Invalid username and password",
+        });
     return res.redirect("/");
 }
 
@@ -27,5 +24,5 @@ async function handleUserLogin(req, res){
 module.exports = {
     handleUserSignup,
     handleUserLogin,
-    
+
 }
