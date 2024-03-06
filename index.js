@@ -4,11 +4,7 @@ const PORT = 8001;
 const path = require('path')
 const URL = require('./models/url')
 const urlRoute = require("./routes/url");
-
 const staticRoute = require('./routes/staticRoute')
-
-
-
 const { connectToMongoDB } = require('./connect')
 
 connectToMongoDB('mongodb://127.0.0.1:27017/short-url')
@@ -16,25 +12,16 @@ connectToMongoDB('mongodb://127.0.0.1:27017/short-url')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
-
 app.set("view engine", "ejs");
-
 app.set('views', path.resolve("./views"));
-
-
-
-
 app.use("/url", urlRoute);
-
-
 app.use('/', staticRoute);
 
-
-app.get('/:shortId', async (req, res) => {
+app.get('/url/:shortId', async (req, res) => {
     const shortId = req.params.shortId;
     const entry = await URL.findOneAndUpdate(
         {
-            shortId
+            shortId,
         },
         {
             $push: {
