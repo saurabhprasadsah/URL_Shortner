@@ -4,12 +4,11 @@ const PORT = 8001;
 const path = require('path')
 const URL = require('./models/url')
 
-
 const urlRoute = require("./routes/url");
 const staticRoute = require('./routes/staticRoute')
 const userRoute = require('./routes/user')
 
-
+//connection to mongodb
 const { connectToMongoDB } = require('./connect')
 connectToMongoDB('mongodb://127.0.0.1:27017/short-url')
     .then(() => console.log("mongodb will be connected!"))
