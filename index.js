@@ -36,7 +36,6 @@ app.use('/', checkAuth, staticRoute);
 
 
 
-
 app.get('/url/:shortId', async (req, res) => {
     const shortId = req.params.shortId;
     const entry = await URL.findOneAndUpdate(
