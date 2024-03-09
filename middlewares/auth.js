@@ -12,7 +12,6 @@ async function restrictToLoggedinUserOnly(req, res, next) {
 }
 
 async function checkAuth(req, res, next) {
-
     const userUid = req.heders['authorization'];
     const token = userUid.split("Bearer")[1];
     const user = getUser(token)
@@ -20,6 +19,7 @@ async function checkAuth(req, res, next) {
     next();
 
 }
+
 
 module.exports={
     restrictToLoggedinUserOnly,
