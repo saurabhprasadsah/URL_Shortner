@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
 
-const { restrictToLoggedinUserOnly,checkAuth }= require('./middlewares/auth')
+const { checkForAuthentication,restrictTo }= require('./middlewares/auth')
 
 const PORT = 8001;
 const path = require('path')
@@ -23,6 +23,7 @@ connectToMongoDB('mongodb://127.0.0.1:27017/short-url')
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 app.use(cookieParser());
+app.use(checkForAuthentication);
 
 
 
@@ -30,9 +31,9 @@ app.set("view engine", "ejs");
 app.set('views', path.resolve("./views"));
 
 
-app.use("/url",restrictToLoggedinUserOnly,  urlRoute);
+app.use("/url", restrictTo(["NORMAL"]), urlRoute);
 app.use("/user", userRoute);
-app.use('/', checkAuth, staticRoute);
+app.use('/', staticRoute);
 
 
 
